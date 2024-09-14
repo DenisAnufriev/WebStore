@@ -1,0 +1,22 @@
+{% extends 'home.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row text-center">
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+            </div>
+            <div class="card-body">
+                <img src="{{ product.photo | media_filter }}">
+                <h1 class="card-title pricing-card-title">{{ product.price }}$</h1>
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                    <li>{{ product.description | slice:":100" }}</li>
+                </ul>
+<!--                <a class="btn btn-outline-primary" href="{% url 'catalog:product' product.pk %}" role="button">Купить</a>-->
+                <a href="#" class="btn btn-outline-primary me-2">Добавить в корзину</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
