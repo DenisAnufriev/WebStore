@@ -1,0 +1,40 @@
+{% extends 'home.html' %}
+{% load article_tags %}
+{% load my_tags %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Добро пожаловать в Skyblog!</h2>
+    <p class="text-center">Здесь вы найдете интересные статьи</p>
+    <p class="text-center">Погружайтесь в чтение и открывайте для себя мир новых возможностей вместе с нами!</p>
+</div>
+<div class="mb-3">
+    <a class="btn btn-primary" href="{% url 'blog:create_article' %}" role="button">Создать запись</a>
+</div>
+{% for object in object_list %}
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-3">
+            <img class="w-100" src="{{ object.photo|media_filter }}">
+        </div>
+        <div class="col-md-9 d-flex flex-column">
+            <div class="card-body">
+                <h5 class="card-title">{{ object.title }}</h5>
+                <p class="text-muted mb-0">{{ object.created_at|date:"d.m.Y H.i" }}</p>
+                <p class="card-text mb-0">{{ object.content|truncate_chars|safe }}</p>
+            </div>
+            <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary me-1" href="{% url 'blog:article_detail' object.pk %}"
+                       role="button">Читать</a>
+                    <a class="btn btn-outline-warning me-1" href="{% url 'blog:update_article' object.pk %}"
+                       role="button">Редактировать</a>
+                    <a class="btn btn-outline-danger" href="{% url 'blog:delete_article' object.pk %}"
+                       role="button">Удалить</a>
+                </div>
+                <p class="text-muted mb-0 small">Просмотров: {{ object.views_count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

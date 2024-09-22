@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+{% load article_tags %}
+{% load my_tags %}
+{% block content %}
+    <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    {% if object.photo %}
+                        <img class="w-100" src="{{ object.photo|media_filter }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h1 class="card-title">{{ object.title }}</h1>
+                        <p class="text-muted mb-4">Опубликовано: {{ object.created_at|date:"d F Y в H:i" }}</p>
+                        <div class="card-text text-justify">
+                            {{ object.content|safe }}
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Просмотров: {{ object.views_count }}
+                    </div>
+                </div>
+                <a href="{% url 'blog:article_list' %}" class="btn btn-primary">Назад к списку статей</a>
+                <a class="btn btn-outline-warning" href="{% url 'blog:update_article' object.pk %}"
+                   role="button">Редактировать</a>
+                <a class="btn btn-outline-danger" href="{% url 'blog:delete_article' object.pk %}" role="button">Удалить</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

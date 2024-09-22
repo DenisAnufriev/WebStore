@@ -2,7 +2,7 @@
 {% load my_tags %}
 {% block content %}
 <div class="row text-center">
-    {% for product in products %}
+    {% for product in object_list %}
     <div class="col-3">
         <div class="card mb-4 box-shadow">
             <div class="card-header">
@@ -14,8 +14,8 @@
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     <li>{{ product.description | slice:":100" }}</li>
                 </ul>
-<!--                <button type="button" class="btn btn-lg w-100 btn-outline-primary">Купить</button>-->
-                <a class="btn btn-lg w-100 btn-outline-primary" href="{% url 'catalog:product' product.pk %}">Купить</a>
+                <a class="btn btn-outline-primary" href="{% url 'catalog:product' product.pk %}"
+                               role="button">Подробнее</a>
             </div>
         </div>
     </div>

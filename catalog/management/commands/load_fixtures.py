@@ -1,6 +1,9 @@
 import json
+
 from django.core.management.base import BaseCommand
-from catalog.models import Product, Category
+
+from blog.models import Article
+from catalog.models import Product, Category, ContactsInfo
 
 
 class Command(BaseCommand):
@@ -34,6 +37,17 @@ class Command(BaseCommand):
             data = json.load(file)
             return [item for item in data if item["model"] == "catalog.product"]
 
+    @staticmethod
+    def json_read_contacts_info():
+        with open("fixtures/catalog_data.json", encoding="utf-8") as file:
+            data = json.load(file)
+            return [item for item in data if item["model"] == "catalog.contactsinfo"]
+
+    @staticmethod
+    def json_read_articles():
+        with open("fixtures/blog_data.json", encoding="utf-8") as file:
+            data = json.load(file)
+            return [item for item in data if item["model"] == "blog.article"]
 
     def handle(self, *args, **options):
         """
@@ -46,6 +60,8 @@ class Command(BaseCommand):
         """
         Product.objects.all().delete()
         Category.objects.all().delete()
+        ContactsInfo.objects.all().delete()
+        Article.objects.all().delete()
 
         categories_for_create = []
         for item in Command.json_read_categories():
@@ -62,4 +78,14 @@ class Command(BaseCommand):
             )
         Product.objects.bulk_create(products_for_create)
 
+        contacts_info_for_create = []
+        for item in Command.json_read_contacts_info():
+            contacts_data = item["fields"]
+            contacts_info_for_create.append(ContactsInfo(id=item["pk"], **contacts_data))
+        ContactsInfo.objects.bulk_create(contacts_info_for_create)
 
+        articles_for_create = []
+        for item in Command.json_read_articles():
+            article_data = item["fields"]
+            articles_for_create.append(Article(id=item["pk"], **article_data))
+        Article.objects.bulk_create(articles_for_create)
