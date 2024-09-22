@@ -1,0 +1,27 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Заголовок статьи</label>
+            {{ form.title }}
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Содержимое статьи</label>
+            {{ form.content }}
+        </div>
+        <div class="mb-3">
+            <label for="photo" class="form-label">Картинка</label>
+            {{ form.photo }}
+        </div>
+        <div class="mb-3 form-check">
+            {{ form.is_published }}
+            <label class="form-check-label" for="is_published">
+                Опубликовано
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        <a href="{% url 'blog:article_list' %}" class="btn btn-outline-primary">Назад к списку статей</a>
+    </form>
+{% endblock %}
