@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -16,6 +15,7 @@ class ArticleListView(ListView):
         queryset = queryset.filter(is_published=True)
         return queryset
 
+
 class ArticleDetailView(DetailView):
     model = Article
 
@@ -24,6 +24,7 @@ class ArticleDetailView(DetailView):
         self.object.views_count += 1
         self.object.save()
         return self.object
+
 
 class ArticleCreateView(CreateView):
     model = Article
@@ -37,12 +38,14 @@ class ArticleCreateView(CreateView):
             item.save()
         return super().form_valid(form)
 
+
 class ArticleUpdateView(UpdateView):
     model = Article
     form_class = ArticleUpdateForm
 
     def get_success_url(self):
         return reverse_lazy("blog:article_detail", kwargs={"pk": self.object.pk})
+
 
 class ArticleDeleteView(DeleteView):
     model = Article

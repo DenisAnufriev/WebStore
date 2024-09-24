@@ -18,11 +18,11 @@
     <div class="row text-start">
         <div class="col-lg-9 col-md-6 col-sm-12">
             <h2 class="section-heading">Наши контактные данные</h2>
-                <p><strong>Телефон:</strong> {{ contacts_info.phone }}</p>
-                <p><strong>Электронная почта:</strong><a
-                        href="mailto:{{ contact_info.email }}"> {{ contacts_info.email }}</a>
-                </p>
-                <p><strong>Адрес:</strong> {{ contacts_info.address }}</p>
+            <p><strong>Телефон:</strong> {{ contacts_info.phone }}</p>
+            <p><strong>Электронная почта:</strong><a
+                    href="mailto:{{ contact_info.email }}"> {{ contacts_info.email }}</a>
+            </p>
+            <p><strong>Адрес:</strong> {{ contacts_info.address }}</p>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="card mb-4 box-shadow">
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-{% include 'catalog/includes/inc_footer.html' %}
+    {% include 'catalog/includes/inc_footer.html' %}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

@@ -1,5 +1,3 @@
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView
 
 from catalog.models import Product, ContactsInfo
@@ -9,8 +7,10 @@ class ProductListView(ListView):
     model = Product
     ordering = ['-created_at']
 
+
 class ProductDetailView(DetailView):
     model = Product
+
 
 class ContactsTemplateView(TemplateView):
     template_name = "catalog/contacts.html"
@@ -19,6 +19,8 @@ class ContactsTemplateView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["contacts_info"] = ContactsInfo.objects.first()
         return context
+
+# to delete
 
 # def home(request):
 #     products = Product.objects.all().order_by("-created_at")

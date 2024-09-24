@@ -47,9 +47,8 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
         ordering = ["name", "-price", "created_at", "-updated_at"]
 
+
 class ContactsInfo(models.Model):
-
-
     phone = models.CharField(max_length=20, verbose_name="Номер телефона")
     email = models.EmailField(verbose_name="Почта")
     address = models.TextField(verbose_name="Адрес")

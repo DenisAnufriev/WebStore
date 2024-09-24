@@ -1,13 +1,14 @@
 {% extends 'home.html' %}
 
 {% block content %}
- <div class="container mt-4">
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title text-center">Подтверждение удаления</h5>
-                    <p class="text-center">Вы уверены, что хотите удалить материал "{{ object.title }}"? Это действие необратимо.</p>
+                    <p class="text-center">Вы уверены, что хотите удалить материал "{{ object.title }}"? Это действие
+                        необратимо.</p>
                     <form method="post">
                         {% csrf_token %}
                         <div class="text-center">
