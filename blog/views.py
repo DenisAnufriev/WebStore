@@ -1,4 +1,4 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
 from blog.forms import ArticleUpdateForm
@@ -7,7 +7,7 @@ from blog.models import Article
 
 class ArticleListView(ListView):
     model = Article
-    template_name = 'blog/article_list'
+    # template_name = 'blog/article_list'
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
@@ -43,7 +43,7 @@ class ArticleUpdateView(UpdateView):
     form_class = ArticleUpdateForm
 
     def get_success_url(self):
-        return reverse_lazy("blog:article_detail", kwargs={"pk": self.object.pk})
+        return reverse("blog:article_detail", kwargs={"pk": self.object.pk})
 
 
 class ArticleDeleteView(DeleteView):
