@@ -4,15 +4,6 @@ from django.core.exceptions import ValidationError
 from catalog.models import Product, Version
 
 
-# class StyleFormMixin:
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         for fild_name, fild in self.fields.items():
-#             if isinstance(fild, BooleanField):
-#                 fild.widget.attr['class'] = 'form-check-input'
-#             else:
-#                 fild.widget.attr['class'] = 'form-control'
-
 
 class ProductForm(forms.ModelForm):
     forbidden_words = [
