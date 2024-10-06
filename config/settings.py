@@ -14,15 +14,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-
 SECRET_KEY = 'django-insecure-vq6g1!wd@_0&u*ng8+-(krou9qnzqyc1ro_#0@rr)g+w6itz4^'
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -66,19 +62,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'testshop',
         'USER': 'postgres',
         'PASSWORD': '12345',
-        'hostport': 'localhost', # 127.0.0.1
+        'hostport': 'localhost',  # 127.0.0.1
         'PORT': '5432'
     }
 }
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -95,8 +88,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -105,8 +96,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
@@ -114,7 +103,6 @@ STATICFILES_DIRS = [
     # если они располагаются вне приложений
     os.path.join(BASE_DIR, 'static')
 ]
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
