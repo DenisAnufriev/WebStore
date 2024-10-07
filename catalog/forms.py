@@ -1,11 +1,19 @@
-from django import forms
-from django.core.exceptions import ValidationError
+from django.forms import ValidationError, BooleanField, ModelForm
 
 from catalog.models import Product, Version
 
 
+class StyleFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field, in self.fields.items():
+            if isinstance(field, BooleanField):
+                field.widget.attrs['class'] = 'form-check-input'
+            else:
+                field.widget.attrs['class'] = 'form-control'
 
-class ProductForm(forms.ModelForm):
+
+class ProductForm(StyleFormMixin, ModelForm):
     forbidden_words = [
         "казино",
         "криптовалюта",
@@ -20,24 +28,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ["name", "description", "photo", "category", "price"]
-        widgets = {
-            "name": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Введите наименование товара",
-                }
-            ),
-            "description": forms.Textarea(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Введите описание товара",
-                }
-            ),
-            "photo": forms.ClearableFileInput(attrs={"class": "form-control"}),
-            "category": forms.Select(attrs={"class": "form-select"}),
-            "price": forms.NumberInput(attrs={"class": "form-control"}),
-        }
+        fields = "__all__"
 
     def clean_name(self):
         name = self.cleaned_data.get("name")
@@ -54,14 +45,7 @@ class ProductForm(forms.ModelForm):
         return description
 
 
-class VersionForm(forms.ModelForm):
+class VersionForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Version
-        # exclude = ("product",)
-        fields = ("version_number", "version_name", "is_active")
-        widgets = {
-            "product": forms.Select(attrs={"class": "form-select"}),
-            "version_number": forms.TextInput(attrs={"class": "form-control"}),
-            "version_name": forms.TextInput(attrs={"class": "form-control"}),
-            "is_active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
-        }
+        fields = "__all__"
