@@ -1,0 +1,39 @@
+{% extends 'home.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row text-center">
+    <div class="mb-3">
+        <a class="btn btn-primary" href="{% url 'catalog:product_create' %}" role="button">Добавить продукт</a>
+    </div>
+    {% for object in object_list %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
+            </div>
+            <div class="card-body">
+                <img class="w-100" src="{{ object.photo | media_filter }}">
+                <h5 class="card-title">{{ object.price }}$</h5>
+                <p class="card-text">{{ object.description|slice:":100" }}</p>
+                {% for version in object.version_set.all %}
+                {% if version.is_active %}
+                <p class="card-text">Версия: {{ version.version_number }}</p>
+                {% endif %}
+                {% endfor %}
+                <div class="btn-group d-flex justify-content-center mb-2">
+                    <a class="btn btn-outline-primary me-1" href="{% url 'catalog:product_detail' object.pk %}"
+                       role="button">Подробнее</a>
+                </div>
+                <div class="btn-group d-flex justify-content-center">
+                    <a class="btn btn-outline-warning me-1" href="{% url 'catalog:product_edit' object.pk %}"
+                       role="button">Редактировать</a>
+                    <a class="btn btn-outline-danger" href="{% url 'catalog:product_delete' object.pk %}"
+                       role="button">Удалить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
