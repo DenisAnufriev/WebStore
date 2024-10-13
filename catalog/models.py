@@ -66,8 +66,17 @@ class Product(models.Model):
         verbose_name="Дата последнего изменения",
         help_text="Укажите дату изменения",
     )
-    creator = models.ForeignKey(
-        User, verbose_name="Создатель", help_text="Укажите кто создал", **NULLABLE
+    user = models.ForeignKey(
+        User,
+        verbose_name="Пользователь",
+        help_text="Укажите пользователя",
+        **NULLABLE,
+        on_delete=models.SET_NULL,
+    )
+    publication = models.BooleanField(
+        default=False,
+        verbose_name="признак публикации продукта",
+        help_text="продукт опубликован",
     )
 
     def __str__(self):
