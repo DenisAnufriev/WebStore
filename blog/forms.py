@@ -4,6 +4,12 @@ from blog.models import Article
 
 
 class ArticleUpdateForm(forms.ModelForm):
+    """
+        Форма для обновления статьи.
+
+        Эта форма позволяет редактировать поля статьи, такие как заголовок, содержимое,
+        фотография и статус публикации.
+        """
     class Meta:
         model = Article
         fields = ["title", "content", "photo", "is_published"]
@@ -25,7 +31,7 @@ class ArticleUpdateForm(forms.ModelForm):
                     "id": "content",
                 }
             ),
-            "preview": forms.ClearableFileInput(
+            "photo": forms.ClearableFileInput(
                 attrs={"class": "form-control", "id": "preview"}
             ),
             "is_published": forms.CheckboxInput(
