@@ -4,10 +4,10 @@
     <nav class="d-flex w-100 justify-content-between">
         <!-- Первая группа кнопок -->
         <div class="btn-group">
-            <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:home' %}">Каталог</a>
-            <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:contacts' %}">Контакты</a>
-            <a class="p-2 btn btn-outline-primary" href="{% url 'blog:article_list' %}">Блог</a>
-            <a class="p-2 btn btn-outline-secondary" href="#">О нас</a>
+            <a class="p-2 btn btn-outline-primary {% if request.path == '/' %}active{% endif %}" href="{% url 'catalog:home' %}">Каталог</a>
+            <a class="p-2 btn btn-outline-primary {% if request.path == '/contact/' %}active{% endif %}" href="{% url 'catalog:contacts' %}">Контакты</a>
+            <a class="p-2 btn btn-outline-primary {% if request.path == '/blog/' %}active{% endif %}" href="{% url 'blog:article_list' %}">Блог</a>
+            <a class="p-2 btn btn-outline-secondary {% if request.path == '#' %}active{% endif %}" href="#">О нас</a>
         </div>
 
         <!-- Вторая группа кнопок -->

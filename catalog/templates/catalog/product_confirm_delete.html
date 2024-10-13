@@ -6,13 +6,20 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Подтверждение удаления</h5>
+                        <h5 class="card-title text-center text-danger">Подтверждение удаления</h5>
                         <p class="text-center">Вы уверены, что хотите удалить товар "{{ object.name }}"?</p>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                         <form method="post">
                             {% csrf_token %}
                             <div class="text-center">
-                                <button type="submit" class="btn btn-danger">Подтвердить</button>
-                                <a href="{% url 'catalog:home' %}" class="btn btn-warning ms-2">Отмена</a>
+                                <button type="submit" class="btn btn-danger" aria-label="Подтвердить удаление товара">Подтвердить</button>
+                                <a href="{% url 'catalog:home' %}" class="btn btn-warning ms-2" aria-label="Отменить удаление товара">Отмена</a>
                             </div>
                         </form>
                     </div>
