@@ -2,6 +2,8 @@ from decimal import Decimal
 
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {"blank": True, "null": True}
 
 
@@ -47,7 +49,6 @@ class Product(models.Model):
         **NULLABLE,
         related_name="Товары",
     )
-    # price = models.IntegerField(verbose_name='Цена за покупку', help_text='Укажите цену за покупку', **NULLABLE)
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -64,6 +65,9 @@ class Product(models.Model):
         auto_now=True,
         verbose_name="Дата последнего изменения",
         help_text="Укажите дату изменения",
+    )
+    creator = models.ForeignKey(
+        User, verbose_name="Создатель", help_text="Укажите кто создал", **NULLABLE
     )
 
     def __str__(self):
