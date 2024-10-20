@@ -22,11 +22,16 @@
                     {% endif %}
                 {% endfor %}
                 <div class="btn-group d-flex justify-content-center mb-2">
+
                     <a class="btn btn-outline-primary me-1" href="{% url 'catalog:product_detail' object.pk %}" role="button">Подробнее</a>
                 </div>
                 <div class="btn-group d-flex justify-content-center">
+                    {% if perms.catalog.set_published and perms.catalog.can_edit_description and perms.catalog.can_edit_category or user == object.user or perms.catalog.set_published %}
                     <a class="btn btn-outline-warning me-1" href="{% url 'catalog:product_edit' object.pk %}" role="button">Редактировать</a>
+                    {% endif %}
+                    {% if user == object.user or user.is_superuser %}
                     <a class="btn btn-outline-danger" href="{% url 'catalog:product_delete' object.pk %}" role="button">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
