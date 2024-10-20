@@ -5,7 +5,10 @@ from catalog.models import NULLABLE
 
 class Article(models.Model):
     """
-    Blog model
+    Модель блога, представляющая статью.
+
+    Эта модель содержит информацию о статье, включая заголовок, содержимое,
+    фотографию, дату создания и статус публикации.
     """
 
     title = models.CharField(max_length=150, verbose_name="заголовок")

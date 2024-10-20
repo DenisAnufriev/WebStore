@@ -3,19 +3,23 @@
 {% block content %}
 <div class="row text-center">
     <div class="col-6">
-        <div class="card mb-4 box-shadow">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
+        {% if object %}
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <img class="w-100" src="{{ product.photo | media_filter }}" alt="{{ object.name }}">
+                    <h1 class="card-title pricing-card-title">{{ object.price|floatformat:2 }}$</h1>
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>{{ object.description }}</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline-primary me-2" aria-label="Добавить {{ object.name }} в корзину">Добавить в корзину</a>
+                </div>
             </div>
-            <div class="card-body">
-                <img class="w-100" src="{{ product.photo | media_filter }}">
-                <h1 class="card-title pricing-card-title">{{ object.price }}$</h1>
-                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    <li>{{ object.description }}</li>
-                </ul>
-                <a href="#" class="btn btn-outline-primary me-2">Добавить в корзину</a>
-            </div>
-        </div>
+        {% else %}
+            <p>Продукт не найден.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

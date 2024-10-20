@@ -8,18 +8,18 @@ from catalog.models import Product, Category, ContactsInfo
 
 class Command(BaseCommand):
     """
-    Custom management command to populate the database with data from a JSON fixtures file.
-    The command will first clear existing data from the Product, Category, and ContactInfo tables,
-    and then repopulate them with the data from the fixtures file `catalog_data.json`.
+    Пользовательская команда управления для заполнения базы данных данными из файла фикстуры JSON.
+    Команда сначала очищает существующие данные в таблицах Product, Category и ContactsInfo,
+    а затем заполняет их данными из файла фикстуры `catalog_data.json`.
     """
 
     @staticmethod
     def json_read_categories():
         """
-        Reads and filters category data from the fixtures file.
+        Читает и фильтрует данные категорий из файла фикстуры.
 
         Returns:
-            list: A list of dictionaries containing data for Category model instances.
+            list: Список словарей, содержащих данные для экземпляров модели Category.
         """
         with open("fixtures/catalog_data.json", encoding="utf-8") as file:
             data = json.load(file)
@@ -28,10 +28,10 @@ class Command(BaseCommand):
     @staticmethod
     def json_read_products():
         """
-        Reads and filters product data from the fixtures file.
+        Читает и фильтрует данные продуктов из файла фикстуры.
 
         Returns:
-            list: A list of dictionaries containing data for Product model instances.
+            list: Список словарей, содержащих данные для экземпляров модели Product.
         """
         with open("fixtures/catalog_data.json", encoding="utf-8") as file:
             data = json.load(file)
@@ -39,24 +39,36 @@ class Command(BaseCommand):
 
     @staticmethod
     def json_read_contacts_info():
+        """
+        Читает и фильтрует данные контактной информации из файла фикстуры.
+
+        Returns:
+            list: Список словарей, содержащих данные для экземпляров модели ContactsInfo.
+        """
         with open("fixtures/catalog_data.json", encoding="utf-8") as file:
             data = json.load(file)
             return [item for item in data if item["model"] == "catalog.contactsinfo"]
 
     @staticmethod
     def json_read_articles():
+        """
+        Читает и фильтрует данные статей из файла фикстуры.
+
+        Returns:
+            list: Список словарей, содержащих данные для экземпляров модели Article.
+        """
         with open("fixtures/blog_data.json", encoding="utf-8") as file:
             data = json.load(file)
             return [item for item in data if item["model"] == "blog.article"]
 
     def handle(self, *args, **options):
         """
-        Main method that handles the execution of the command.
+        Основной метод, который обрабатывает выполнение команды.
 
-        - Deletes all existing data from the Product, Category tables.
-        - Reads category, product information data from the fixtures file.
-        - Creates new instances of Category, Product based on the fixtures data.
-        - Saves the new instances in bulk to the database.
+        - Удаляет все существующие данные из таблиц Product и Category.
+        - Читает данные о категориях и продуктах из файла фикстуры.
+        - Создает новые экземпляры Category и Product на основе данных из фикстуры.
+        - Сохраняет новые экземпляры в базе данных в пакетном режиме.
         """
         Product.objects.all().delete()
         Category.objects.all().delete()
@@ -81,7 +93,9 @@ class Command(BaseCommand):
         contacts_info_for_create = []
         for item in Command.json_read_contacts_info():
             contacts_data = item["fields"]
-            contacts_info_for_create.append(ContactsInfo(id=item["pk"], **contacts_data))
+            contacts_info_for_create.append(
+                ContactsInfo(id=item["pk"], **contacts_data)
+            )
         ContactsInfo.objects.bulk_create(contacts_info_for_create)
 
         articles_for_create = []
