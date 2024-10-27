@@ -86,6 +86,11 @@ class Product(models.Model):
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
         ordering = ["name", "-price", "created_at", "-updated_at"]
+        permissions = [
+            ('set_published', 'Can publish products'),
+            ("can_edit_category", "Can edit category"),
+            ("can_edit_description", "Can edit description")
+        ]
 
 
 class ContactsInfo(models.Model):
