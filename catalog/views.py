@@ -34,6 +34,7 @@ class ProductDetailView(DetailView):
     """
 
     model = Product
+    success_url = reverse_lazy('catalog:product_list')
 
 
 class ContactsTemplateView(TemplateView):
