@@ -29,6 +29,7 @@ class ProductModeratorForm(StyleFormMixin, ModelForm):
         model = Product
         fields = ("description", "category", "publication")
 
+
 class ProductContentManagerForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product

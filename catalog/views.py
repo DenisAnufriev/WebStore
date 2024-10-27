@@ -12,7 +12,8 @@ from django.views.generic import (
 )
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm, ProductContentManagerForm
-from catalog.models import Product, ContactsInfo, Version
+from catalog.models import Product, ContactsInfo, Version, Category
+from catalog.services import get_product_from_cache, get_categories_from_cache
 
 
 class ProductListView(ListView):
@@ -22,6 +23,9 @@ class ProductListView(ListView):
 
     model = Product
     ordering = ["-created_at"]
+
+    def get_queryset(self):
+        return get_product_from_cache()
 
 
 class ProductDetailView(DetailView):
@@ -189,3 +193,11 @@ class ProductDeleteView(DeleteView):
 
     model = Product
     success_url = reverse_lazy("catalog:home")
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = "catalog/categories_list.html"
+
+    def get_queryset(self):
+        return get_categories_from_cache()
