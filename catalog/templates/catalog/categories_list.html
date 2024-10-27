@@ -1,0 +1,25 @@
+{% extends 'home.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row text-center">
+    {% for category in object_list %}
+
+    <div class="row text-center">
+        <div class="col-3">
+            <div class="card-deck">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">{{ category.name }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="card-align-self-end">
+            <div class="card-body">
+                <a href="{% url 'catalog:product_list' %}" type="button"
+                   class="btn btn-lg btn-block btn-danger">Назад</a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
